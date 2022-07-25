@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinInterval, max, min,
 } from 'date-fns';
-import { DateRange, DefinedRange, NavigationAction } from '../types';
+import { DateRange, DefinedRange, NavigationAction, Labels } from '../types';
 import { getValidatedMonths, parseOptionalDate } from '../utils';
 import { getDefaultRanges } from '../defaults';
 import Menu from './Menu';
@@ -17,6 +17,7 @@ interface DateRangePickerProps {
   // eslint-disable-next-line no-unused-vars
   onChange: (dateRange: DateRange) => void;
   locale?: Locale;
+  labels?: Labels;
 }
 
 const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
@@ -30,7 +31,7 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
     initialDateRange,
     minDate,
     maxDate,
-    definedRanges = getDefaultRanges(new Date(), props.locale),
+    definedRanges = getDefaultRanges(new Date(), props.locale, props.labels),
     locale,
   } = props;
 
