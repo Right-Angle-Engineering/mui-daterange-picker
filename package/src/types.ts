@@ -21,3 +21,15 @@ export type DefinedRange = {
   endDate: Date;
   label: string;
 };
+
+export interface Labels {
+  today: string;
+  yesterday: string;
+  thisWeek: string;
+  lastWeek: string;
+  lastSevenDays: string;
+  thisMonth: string;
+  lastMonth: string;
+  thisYear: string;
+  lastYear: string;
+}
