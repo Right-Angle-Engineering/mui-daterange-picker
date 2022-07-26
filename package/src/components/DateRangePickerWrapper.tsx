@@ -21,6 +21,7 @@ export interface DateRangePickerWrapperProps {
   labels?: Labels;
   menuLabels?: MenuLabels;
   menuButton?: MenuButton;
+  bgColor?: string;
 }
 
 const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProps> = (

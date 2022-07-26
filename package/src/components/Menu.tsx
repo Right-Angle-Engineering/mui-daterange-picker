@@ -33,6 +33,7 @@ interface MenuProps {
   locale?: Locale;
   labels?: MenuLabels;
   button?: MenuButton;
+  bgColor?: string;
 }
 
 const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
@@ -51,6 +52,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     locale,
     labels,
     button,
+    bgColor,
   } = props;
 
   const { startDate, endDate } = dateRange;
@@ -63,7 +65,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     handlers,
   };
   return (
-    <Grid display="inline-flex" wrap="nowrap">
+    <Grid display="inline-flex" wrap="nowrap" bgcolor={bgColor ? bgColor : 'transparent'}>
       <Grid>
         <DefinedRanges selectedRange={dateRange} ranges={ranges} setRange={setDateRange} />
       </Grid>
@@ -94,8 +96,8 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
               navState={[true, canNavigateCloser]}
               marker={MARKERS.FIRST_MONTH}
               locale={locale}
+              bgColor={bgColor}
             />
-            {/* <Divider orientation="vertical" flexItem /> */}
             <Month
               {...commonProps}
               value={secondMonth}
@@ -103,6 +105,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
               navState={[canNavigateCloser, true]}
               marker={MARKERS.SECOND_MONTH}
               locale={locale}
+              bgColor={bgColor}
             />
           </Grid>
           {button && (
