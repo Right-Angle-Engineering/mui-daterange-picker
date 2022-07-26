@@ -27,9 +27,19 @@ export interface Labels {
   yesterday: string;
   thisWeek: string;
   lastWeek: string;
-  lastSevenDays: string;
+  lastThirtyDays: string;
   thisMonth: string;
   lastMonth: string;
   thisYear: string;
   lastYear: string;
+}
+
+export interface MenuLabels {
+  startDateLabel: string;
+  endDateLabel: string;
+}
+
+export interface MenuButton {
+  text: string;
+  onClick: () => void;
 }

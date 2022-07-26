@@ -2,7 +2,9 @@ import * as React from 'react';
 import {
   addMonths, addYears, isAfter, isBefore, isSameDay, isSameMonth, isWithinInterval, max, min,
 } from 'date-fns';
-import { DateRange, DefinedRange, NavigationAction, Labels } from '../types';
+import {
+  DateRange, DefinedRange, NavigationAction, Labels, MenuLabels, MenuButton,
+} from '../types';
 import { getValidatedMonths, parseOptionalDate } from '../utils';
 import { getDefaultRanges } from '../defaults';
 import Menu from './Menu';
@@ -18,6 +20,8 @@ interface DateRangePickerProps {
   onChange: (dateRange: DateRange) => void;
   locale?: Locale;
   labels?: Labels;
+  menuLabels?: MenuLabels;
+  menuButton?: MenuButton;
 }
 
 const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
@@ -33,6 +37,8 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
     maxDate,
     definedRanges = getDefaultRanges(new Date(), props.locale, props.labels),
     locale,
+    menuLabels,
+    menuButton,
   } = props;
 
   const minDateValid = parseOptionalDate(minDate, addYears(today, -10));
@@ -148,6 +154,8 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
       helpers={helpers}
       handlers={handlers}
       locale={locale}
+      labels={menuLabels}
+      button={menuButton}
     />
   ) : null;
 };
