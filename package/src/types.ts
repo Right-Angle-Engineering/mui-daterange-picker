@@ -33,3 +33,13 @@ export interface Labels {
   thisYear: string;
   lastYear: string;
 }
+
+export interface MenuLabels {
+  startDateLabel: string;
+  endDateLabel: string;
+}
+
+export interface MenuButton {
+  text: string;
+  onClick: () => void;
+}

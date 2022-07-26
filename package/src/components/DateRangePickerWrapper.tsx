@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import DateRangePicker from './DateRangePicker';
 
 // eslint-disable-next-line no-unused-vars
-import { DateRange, DefinedRange } from '../types';
+import { DateRange, DefinedRange, Labels, MenuButton, MenuLabels } from '../types';
 
 export interface DateRangePickerWrapperProps {
   open: boolean;
@@ -18,6 +18,9 @@ export interface DateRangePickerWrapperProps {
   closeOnClickOutside?: boolean;
   wrapperClassName?: string;
   locale?: Locale;
+  labels?: Labels;
+  menuLabels?: MenuLabels;
+  menuButton?: MenuButton;
 }
 
 const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProps> = (
@@ -61,7 +64,10 @@ const DateRangePickerWrapper: React.FunctionComponent<DateRangePickerWrapperProp
         )
       }
 
-      <Box sx={{ position: 'relative', zIndex: 1 }} className={wrapperClassName} >
+      <Box
+        sx={{ position: 'relative', display: 'inline-block', zIndex: 1 }}
+        className={wrapperClassName}
+      >
         <DateRangePicker {...props} />
       </Box>
     </Box>
