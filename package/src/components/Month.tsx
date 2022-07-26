@@ -34,6 +34,7 @@ interface MonthProps {
     onMonthNavigate: (marker: symbol, action: NavigationAction) => void;
   };
   locale?: Locale;
+  bgColor?: string;
 }
 
 const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
@@ -46,7 +47,8 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
     setValue: setDate,
     minDate,
     maxDate,
-    locale
+    locale,
+    bgColor
   } = props;
 
   const weekStartsOn = locale?.options?.weekStartsOn || 0;
@@ -57,7 +59,7 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
 
   return (
     <Paper square elevation={0} sx={{ width: 290 }}>
-      <Grid container>
+      <Grid container bgcolor={bgColor ? bgColor : 'transparent'}>
         <Header
           date={date}
           setDate={setDate}
