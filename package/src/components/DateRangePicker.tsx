@@ -23,6 +23,8 @@ interface DateRangePickerProps {
   menuLabels?: MenuLabels;
   menuButton?: MenuButton;
   bgColor?: string;
+  definedRangesMenuIsShown?: boolean;
+  buttonMargin?: string | number;
 }
 
 const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
@@ -41,6 +43,8 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
     menuLabels,
     menuButton,
     bgColor,
+    definedRangesMenuIsShown,
+    buttonMargin,
   } = props;
 
   const minDateValid = parseOptionalDate(minDate, addYears(today, -10));
@@ -159,6 +163,8 @@ const DateRangePicker: React.FunctionComponent<DateRangePickerProps> = (
       labels={menuLabels}
       button={menuButton}
       bgColor={bgColor}
+      definedRangesMenuIsShown={definedRangesMenuIsShown}
+      buttonMargin={buttonMargin}
     />
   ) : null;
 };
