@@ -34,6 +34,8 @@ interface MenuProps {
   labels?: MenuLabels;
   button?: MenuButton;
   bgColor?: string;
+  definedRangesMenuIsShown?: boolean;
+  buttonMargin?: string | number;
 }
 
 const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
@@ -53,6 +55,8 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     labels,
     button,
     bgColor,
+    definedRangesMenuIsShown,
+    buttonMargin,
   } = props;
 
   const { startDate, endDate } = dateRange;
@@ -66,10 +70,14 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
   };
   return (
     <Grid display="inline-flex" wrap="nowrap" bgcolor={bgColor ? bgColor : 'transparent'}>
-      <Grid>
-        <DefinedRanges selectedRange={dateRange} ranges={ranges} setRange={setDateRange} />
-      </Grid>
-      <Divider orientation="vertical" flexItem />
+      {definedRangesMenuIsShown && (
+        <>
+          <Grid>
+            <DefinedRanges selectedRange={dateRange} ranges={ranges} setRange={setDateRange} />
+          </Grid>
+          <Divider orientation="vertical" flexItem />
+        </>
+      )}
       <Grid>
         <Grid container sx={{ padding: "20px 70px" }} alignItems="center">
           <Grid item sx={{ flex: 1, textAlign: "center" }}>
@@ -110,7 +118,11 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
           </Grid>
           {button && (
             <Grid container justifyContent="center">
-              <Button variant="contained" sx={{ textTransform: "none" }} onClick={button.onClick}>
+              <Button
+                variant="contained"
+                sx={{ textTransform: 'none', marginBottom: buttonMargin ? buttonMargin : 0 }}
+                onClick={button.onClick}
+              >
                 {button.text ? button.text : "Apply"}
               </Button>
             </Grid>
