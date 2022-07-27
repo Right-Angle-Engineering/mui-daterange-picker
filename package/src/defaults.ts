@@ -38,7 +38,7 @@ export const getDefaultRanges = (date: Date, locale?: Locale, labels?: Labels): 
   },
   {
     label: labels?.lastThirtyDays || 'Last 30 Days',
-    startDate: addWeeks(date, -30),
+    startDate: addDays(date, -30),
     endDate: date,
   },
   {
