@@ -69,7 +69,7 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     handlers,
   };
   return (
-    <Grid display="inline-flex" wrap="nowrap" bgcolor={bgColor ? bgColor : 'transparent'}>
+    <Grid container display="inline-flex" wrap="nowrap" bgcolor={bgColor ? bgColor : 'transparent'}>
       {definedRangesMenuIsShown && (
         <>
           <Grid>
