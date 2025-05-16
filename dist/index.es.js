@@ -1,6 +1,6 @@
 import * as React from 'react';
 import React__default from 'react';
-import { Grid, IconButton, FormControl, Select, MenuItem, Box, Typography, Paper, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
+import { Grid, IconButton, FormControl, Select, MenuItem, Box, Typography, Paper, List, ListItemButton, ListItemText, Divider, Button } from '@mui/material';
 import { parseISO, isValid, max, min, isSameMonth, addMonths, isSameDay, isWithinInterval, startOfWeek, startOfMonth, endOfWeek, endOfMonth, isBefore, addDays, startOfDay, addWeeks, startOfYear, endOfYear, addYears, getMonth, getYear, setMonth, setYear, format, isToday, getDate, differenceInCalendarMonths, isAfter } from 'date-fns';
 import ArrowRightAlt from '@mui/icons-material/ArrowRightAlt';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
@@ -113,7 +113,10 @@ const Header = ({ date, setDate, nextDisabled, prevDisabled, onClickNext, onClic
     const handleYearChange = (event) => {
         setDate(setYear(date, parseInt(event.target.value, 10)));
     };
-    return (React__default.createElement(Grid, { container: true, justifyContent: "space-between", alignItems: "center" },
+    return (React__default.createElement(Grid, { container: true, sx: {
+            justifyContent: "space-between",
+            alignItems: "center"
+        } },
         React__default.createElement(Grid, { item: true, sx: { padding: '5px' } },
             React__default.createElement(IconButton, { sx: {
                     padding: '10px',
@@ -139,18 +142,25 @@ const Header = ({ date, setDate, nextDisabled, prevDisabled, onClickNext, onClic
 };
 
 const Day = ({ startOfRange, endOfRange, disabled, highlighted, outlined, filled, onClick, onHover, value, }) => {
-    return (React__default.createElement(Box, { sx: {
-            display: 'flex',
-            // eslint-disable-next-line no-nested-ternary
-            borderRadius: startOfRange ? '50% 0 0 50%' : endOfRange ? '0 50% 50% 0' : undefined,
-            backgroundColor: (theme) => !disabled && highlighted ? theme.palette.primary.light : undefined,
-        } },
-        React__default.createElement(IconButton, { sx: Object.assign({ height: '36px', width: '36px', padding: 0, border: (theme) => !disabled && outlined ? `1px solid ${theme.palette.primary.dark}` : undefined }, (!disabled && filled ? {
-                '&:hover': {
+    return (React__default.createElement(Box, { sx: [{
+                display: 'flex',
+                backgroundColor: (theme) => !disabled && highlighted ? theme.palette.primary.light : undefined
+            }, startOfRange ? {
+                borderRadius: '50% 0 0 50%'
+            } : {
+                borderRadius: endOfRange ? '0 50% 50% 0' : undefined
+            }] },
+        React__default.createElement(IconButton, { sx: [{
+                    height: '36px',
+                    width: '36px',
+                    padding: 0,
+                    border: (theme) => !disabled && outlined ? `1px solid ${theme.palette.primary.dark}` : undefined
+                }, (!disabled && filled ? {
+                    '&:hover': {
+                        backgroundColor: (theme) => theme.palette.primary.dark,
+                    },
                     backgroundColor: (theme) => theme.palette.primary.dark,
-                },
-                backgroundColor: (theme) => theme.palette.primary.dark,
-            } : {})), disabled: disabled, onClick: onClick, onMouseOver: onHover },
+                } : {})], disabled: disabled, onClick: onClick, onMouseOver: onHover },
             React__default.createElement(Typography, { sx: {
                     lineHeight: 1.6,
                     color: (theme) => !disabled
@@ -176,19 +186,27 @@ const Month = (props) => {
         : ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
     const [back, forward] = props.navState;
     return (React__default.createElement(Paper, { square: true, elevation: 0, sx: { width: 290, backgroundColor: bgColor } },
-        React__default.createElement(Grid, { container: true, bgcolor: bgColor ? bgColor : 'transparent' },
+        React__default.createElement(Grid, { container: true, sx: [bgColor ? {
+                    bgcolor: bgColor
+                } : {
+                    bgcolor: 'transparent'
+                }] },
             React__default.createElement(Header, { date: date, setDate: setDate, nextDisabled: !forward, prevDisabled: !back, onClickPrevious: () => handlers.onMonthNavigate(marker, NavigationAction.Previous), onClickNext: () => handlers.onMonthNavigate(marker, NavigationAction.Next), locale: locale }),
-            React__default.createElement(Grid, { item: true, container: true, direction: "row", justifyContent: "space-between", sx: {
+            React__default.createElement(Grid, { item: true, container: true, direction: "row", sx: {
+                    justifyContent: "space-between",
                     marginTop: "10px",
                     paddingLeft: "30px",
                     paddingRight: "30px"
                 } }, WEEK_DAYS.map((day, index) => (React__default.createElement(Typography, { color: "textSecondary", key: index, variant: "caption" }, day)))),
-            React__default.createElement(Grid, { item: true, container: true, direction: "column", justifyContent: "space-between", sx: {
+            React__default.createElement(Grid, { item: true, container: true, direction: "column", sx: {
+                    justifyContent: "space-between",
                     paddingLeft: '15px',
                     paddingRight: '15px',
                     marginTop: '15px',
                     marginBottom: '20px'
-                } }, chunks(getDaysInMonth(date, locale), 7).map((week, idx) => (React__default.createElement(Grid, { key: idx, container: true, direction: "row", justifyContent: "center" }, week.map((day) => {
+                } }, chunks(getDaysInMonth(date, locale), 7).map((week, idx) => (React__default.createElement(Grid, { key: idx, container: true, direction: "row", sx: {
+                    justifyContent: "center"
+                } }, week.map((day) => {
                 const isStart = isStartOfRange(dateRange, day);
                 const isEnd = isEndOfRange(dateRange, day);
                 const isRangeOneDay = isRangeSameDay(dateRange);
@@ -206,7 +224,7 @@ const isSameRange = (first, second) => {
     }
     return false;
 };
-const DefinedRanges = ({ ranges, setRange, selectedRange, }) => (React__default.createElement(List, null, ranges.map((range, idx) => (React__default.createElement(ListItem, { button: true, key: idx, onClick: () => setRange(range), sx: [
+const DefinedRanges = ({ ranges, setRange, selectedRange, }) => (React__default.createElement(List, null, ranges.map((range, idx) => (React__default.createElement(ListItemButton, { key: idx, onClick: () => setRange(range), sx: [
         isSameRange(range, selectedRange) && {
             backgroundColor: (theme) => theme.palette.primary.dark,
             color: 'primary.contrastText',
@@ -241,13 +259,22 @@ const Menu = (props) => {
         helpers,
         handlers,
     };
-    return (React__default.createElement(Grid, { container: true, display: "inline-flex", wrap: "nowrap", bgcolor: bgColor ? bgColor : 'transparent' },
+    return (React__default.createElement(Grid, { container: true, wrap: "nowrap", sx: [{
+                display: "inline-flex"
+            }, bgColor ? {
+                bgcolor: bgColor
+            } : {
+                bgcolor: 'transparent'
+            }] },
         definedRangesMenuIsShown && (React__default.createElement(React__default.Fragment, null,
             React__default.createElement(Grid, null,
                 React__default.createElement(DefinedRanges, { selectedRange: dateRange, ranges: ranges, setRange: setDateRange })),
             React__default.createElement(Divider, { orientation: "vertical", flexItem: true }))),
         React__default.createElement(Grid, null,
-            React__default.createElement(Grid, { container: true, sx: { padding: "20px 70px" }, alignItems: "center" },
+            React__default.createElement(Grid, { container: true, sx: {
+                    alignItems: "center",
+                    padding: "20px 70px"
+                } },
                 React__default.createElement(Grid, { item: true, sx: { flex: 1, textAlign: "center" } },
                     React__default.createElement(Typography, { variant: "subtitle1" }, startDate ? format(startDate, "dd MMMM yyyy", { locale }) : (labels === null || labels === void 0 ? void 0 : labels.startDateLabel) || "Start Date")),
                 React__default.createElement(Grid, { item: true, sx: { flex: 1, textAlign: "center" } },
@@ -255,12 +282,24 @@ const Menu = (props) => {
                 React__default.createElement(Grid, { item: true, sx: { flex: 1, textAlign: "center" } },
                     React__default.createElement(Typography, { variant: "subtitle1" }, endDate ? format(endDate, "dd MMMM yyyy", { locale }) : (labels === null || labels === void 0 ? void 0 : labels.endDateLabel) || "End Date"))),
             React__default.createElement(Divider, null),
-            React__default.createElement(Grid, { container: true, direction: "column", justifyContent: "center" },
-                React__default.createElement(Grid, { container: true, direction: "row", justifyContent: "center" },
+            React__default.createElement(Grid, { container: true, direction: "column", sx: {
+                    justifyContent: "center"
+                } },
+                React__default.createElement(Grid, { container: true, direction: "row", sx: {
+                        justifyContent: "center"
+                    } },
                     React__default.createElement(Month, Object.assign({}, commonProps, { value: firstMonth, setValue: setFirstMonth, navState: [true, canNavigateCloser], marker: MARKERS.FIRST_MONTH, locale: locale, bgColor: bgColor })),
                     React__default.createElement(Month, Object.assign({}, commonProps, { value: secondMonth, setValue: setSecondMonth, navState: [canNavigateCloser, true], marker: MARKERS.SECOND_MONTH, locale: locale, bgColor: bgColor }))),
-                button && (React__default.createElement(Grid, { container: true, justifyContent: "center" },
-                    React__default.createElement(Button, { variant: "contained", sx: { textTransform: 'none', marginBottom: buttonMargin ? buttonMargin : 0 }, onClick: button.onClick }, button.text ? button.text : "Apply")))))));
+                button && (React__default.createElement(Grid, { container: true, sx: {
+                        justifyContent: "center"
+                    } },
+                    React__default.createElement(Button, { variant: "contained", sx: [{
+                                textTransform: 'none'
+                            }, buttonMargin ? {
+                                marginBottom: buttonMargin
+                            } : {
+                                marginBottom: 0
+                            }], onClick: button.onClick }, button.text ? button.text : "Apply")))))));
 };
 
 const DateRangePicker = (props) => {

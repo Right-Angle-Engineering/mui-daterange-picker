@@ -1,5 +1,5 @@
 import React from 'react';
-import {List, ListItem, ListItemText} from '@mui/material';
+import {List, ListItemButton, ListItemText} from '@mui/material';
 import {isSameDay} from 'date-fns';
 import {DateRange, DefinedRange} from '../types';
 
@@ -26,7 +26,7 @@ const DefinedRanges: React.FunctionComponent<DefinedRangesProps> = ({
 }: DefinedRangesProps) => (
   <List>
     {ranges.map((range, idx) => (
-      <ListItem button
+      <ListItemButton
                 key={idx}
                 onClick={() => setRange(range)}
                 sx={[
@@ -50,9 +50,8 @@ const DefinedRanges: React.FunctionComponent<DefinedRangesProps> = ({
         >
           {range.label}
         </ListItemText>
-      </ListItem>
+      </ListItemButton>
     ))}
   </List>
 );
-
 export default DefinedRanges;

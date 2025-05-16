@@ -59,7 +59,11 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
 
   return (
     <Paper square elevation={0} sx={{ width: 290, backgroundColor: bgColor }}>
-      <Grid container bgcolor={bgColor ? bgColor : 'transparent'}>
+      <Grid container sx={[bgColor ? {
+        bgcolor: bgColor
+      } : {
+        bgcolor: 'transparent'
+      }]}>
         <Header
           date={date}
           setDate={setDate}
@@ -69,18 +73,16 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
           onClickNext={() => handlers.onMonthNavigate(marker, NavigationAction.Next)}
           locale={locale}
         />
-
         <Grid
           item
           container
           direction="row"
-          justifyContent="space-between"
           sx={{
+            justifyContent: "space-between",
             marginTop: "10px",
             paddingLeft: "30px",
             paddingRight: "30px"
-          }}
-        >
+          }}>
           {WEEK_DAYS.map((day, index) => (
             <Typography color="textSecondary" key={index} variant="caption">
               {day}
@@ -92,22 +94,22 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
           item
           container
           direction="column"
-          justifyContent="space-between"
           sx={{
+            justifyContent: "space-between",
             paddingLeft: '15px',
             paddingRight: '15px',
             marginTop: '15px',
             marginBottom: '20px'
-          }}
-        >
+          }}>
           {chunks(getDaysInMonth(date, locale), 7).map((week, idx) => (
-            <Grid key={idx} container direction="row" justifyContent="center">
+            <Grid key={idx} container direction="row" sx={{
+              justifyContent: "center"
+            }}>
               {week.map((day) => {
                 const isStart = isStartOfRange(dateRange, day);
                 const isEnd = isEndOfRange(dateRange, day);
                 const isRangeOneDay = isRangeSameDay(dateRange);
                 const highlighted = inDateRange(dateRange, day) || helpers.inHoverRange(day);
-
                 return (
                   <Day
                     key={format(day, "dd-MM-yyyy")}
@@ -133,5 +135,4 @@ const Month: React.FunctionComponent<MonthProps> = (props: MonthProps) => {
     </Paper>
   );
 };
-
 export default Month;

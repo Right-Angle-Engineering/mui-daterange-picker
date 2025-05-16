@@ -69,7 +69,16 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
     handlers,
   };
   return (
-    <Grid container display="inline-flex" wrap="nowrap" bgcolor={bgColor ? bgColor : 'transparent'}>
+    <Grid
+      container
+      wrap="nowrap"
+      sx={[{
+        display: "inline-flex"
+      }, bgColor ? {
+        bgcolor: bgColor
+      } : {
+        bgcolor: 'transparent'
+      }]}>
       {definedRangesMenuIsShown && (
         <>
           <Grid>
@@ -79,7 +88,12 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
         </>
       )}
       <Grid>
-        <Grid container sx={{ padding: "20px 70px" }} alignItems="center">
+        <Grid
+          container
+          sx={{
+            alignItems: "center",
+            padding: "20px 70px"
+          }}>
           <Grid item sx={{ flex: 1, textAlign: "center" }}>
             <Typography variant="subtitle1">
               {startDate ? format(startDate, "dd MMMM yyyy", { locale }) : labels?.startDateLabel || "Start Date"}
@@ -95,8 +109,12 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
           </Grid>
         </Grid>
         <Divider />
-        <Grid container direction="column" justifyContent="center">
-          <Grid container direction="row" justifyContent="center">
+        <Grid container direction="column" sx={{
+          justifyContent: "center"
+        }}>
+          <Grid container direction="row" sx={{
+            justifyContent: "center"
+          }}>
             <Month
               {...commonProps}
               value={firstMonth}
@@ -117,10 +135,18 @@ const Menu: React.FunctionComponent<MenuProps> = (props: MenuProps) => {
             />
           </Grid>
           {button && (
-            <Grid container justifyContent="center">
+            <Grid container sx={{
+              justifyContent: "center"
+            }}>
               <Button
                 variant="contained"
-                sx={{ textTransform: 'none', marginBottom: buttonMargin ? buttonMargin : 0 }}
+                sx={[{
+                  textTransform: 'none'
+                }, buttonMargin ? {
+                  marginBottom: buttonMargin
+                } : {
+                  marginBottom: 0
+                }]}
                 onClick={button.onClick}
               >
                 {button.text ? button.text : "Apply"}

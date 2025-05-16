@@ -44,7 +44,12 @@ const Header: React.FunctionComponent<HeaderProps> = ({
   };
 
   return (
-    <Grid container justifyContent="space-between" alignItems="center">
+    <Grid
+      container
+      sx={{
+        justifyContent: "space-between",
+        alignItems: "center"
+      }}>
       <Grid item sx={{ padding: '5px' }}>
         <IconButton
           sx={{
@@ -75,7 +80,6 @@ const Header: React.FunctionComponent<HeaderProps> = ({
           </Select>
         </FormControl>
       </Grid>
-
       <Grid item>
         <FormControl variant="standard">
           <Select

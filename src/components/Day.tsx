@@ -27,26 +27,27 @@ const Day: React.FunctionComponent<DayProps> = ({
 
   return (
     <Box
-      sx={{
+      sx={[{
         display: 'flex',
-        // eslint-disable-next-line no-nested-ternary
-        borderRadius: startOfRange ? '50% 0 0 50%' : endOfRange ? '0 50% 50% 0' : undefined,
-        backgroundColor: (theme) => !disabled && highlighted ? theme.palette.primary.light : undefined,
-      }}
+        backgroundColor: (theme) => !disabled && highlighted ? theme.palette.primary.light : undefined
+      }, startOfRange ? {
+        borderRadius: '50% 0 0 50%'
+      } : {
+        borderRadius: endOfRange ? '0 50% 50% 0' : undefined
+      }]}
     >
       <IconButton
-        sx={{
+        sx={[{
           height: '36px',
           width: '36px',
           padding: 0,
-          border: (theme) => !disabled && outlined ? `1px solid ${theme.palette.primary.dark}` : undefined,
-          ...(!disabled && filled ? {
-            '&:hover': {
-              backgroundColor: (theme) => theme.palette.primary.dark,
-            },
+          border: (theme) => !disabled && outlined ? `1px solid ${theme.palette.primary.dark}` : undefined
+        }, (!disabled && filled ? {
+          '&:hover': {
             backgroundColor: (theme) => theme.palette.primary.dark,
-          } : {}),
-        }}
+          },
+          backgroundColor: (theme) => theme.palette.primary.dark,
+        } : {})]}
         disabled={disabled}
         onClick={onClick}
         onMouseOver={onHover}
